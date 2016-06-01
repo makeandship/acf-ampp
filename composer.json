@@ -1,0 +1,20 @@
+{
+    "name": "makeandship/acf-medicine_pack",
+    "description": "Medicine Pack field type for ACF",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Make and Ship Limited",
+            "homepage": "https://www.makeandship.com/"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/FlowCommunications/JSONPath.git"
+        }
+    ],
+    "require": {
+        "flow/jsonpath": "dev-master"
+    }
+}
