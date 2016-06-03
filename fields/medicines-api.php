@@ -14,20 +14,13 @@ class MedicinesApi {
 		if ($query_string) {
 			$uri = $uri.'?'.$query_string;
 		}
-		
-		if ($path == '/virtual_therapeutic_moieties.js') {
-			$uri = 'http://telemachus.local/wp/vtms.json';
-		}
-		else if (substr($path, 0, strlen('/actual_medicinal_product_packs')) === '/actual_medicinal_product_packs') {
-			$uri = 'http://telemachus.local/wp/ampp.json';
-		}
 
 		return $uri;
 	}
 
     public function ampps($query) {
 		// full response for AMPP 
-		$query['full'] = true;
+		$query['scheme'] = 'core';
 		
     	$uri = $this->get_endpoint('/virtual_therapeutic_moieties.js', $query);
 
@@ -37,7 +30,7 @@ class MedicinesApi {
         $request = wp_remote_get( $uri, $request_args );
 		$response = json_decode( $request['body'], true );
 		
-		$vtms = $response['vtms'];
+		$vtms = $response['data'];
 		
 		$results = array();
 		$index = 0;
@@ -69,7 +62,10 @@ class MedicinesApi {
     } 
 	
 	public function ampp($id) {
-    	$uri = $this->get_endpoint('/actual_medicinal_product_packs/'.$id.'.js', null);
+		$query = array();
+		$query['scheme'] = 'core';
+		
+    	$uri = $this->get_endpoint('/actual_medicinal_product_packs/'.$id.'.js', $query);
 
 		$request_args = array(
 			'timeout' => 30	
@@ -77,6 +73,6 @@ class MedicinesApi {
         $request = wp_remote_get( $uri, $request_args );
 		$response = json_decode( $request['body'], true );
 		
-		return $response;
+		return $response['data'];
 	}
 } 

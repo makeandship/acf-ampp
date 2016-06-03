@@ -18,43 +18,42 @@ class acf_field_medicine_pack extends acf_field {
 	private $jsonpath = null;
 	
 	const MEDICINES_FIELDS = array(
-		"vtm_id" => "vtm.id",
-		"vtm_name" => "vtm.name",
-		"vtm_applicable_from" => "vtm.applicable_from",
+		"vtm_id" => "id",
+		"vtm_name" => "name",
+		"vtm_applicable_from" => "applicable_from",
 		
-		"vmp_id" => "vtm.virtual_medicinal_products[0].id",
-		"vmp_applicable_from" => "vtm.virtual_medicinal_products[0].applicable_from",
-		"vmp_name" => "vtm.virtual_medicinal_products[0].name",
+		"vmp_id" => "virtual_medicinal_products[0].id",
+		"vmp_applicable_from" => "virtual_medicinal_products[0].applicable_from",
+		"vmp_name" => "virtual_medicinal_products[0].name",
 		"vmp_name_standard" => null,
-		"vmp_name_applicable_from" => "vtm.virtual_medicinal_products[0].name_applicable_from",
-		"vmp_sugar_free" => "vtm.virtual_medicinal_products[0].sugar_free",
-		"vmp_gluten_free" => "vtm.virtual_medicinal_products[0].gluten_free",
-		"vmp_preservative_free" => "vtm.virtual_medicinal_products[0].preservative_free",
-		"vmp_cfc_free" => "vtm.virtual_medicinal_products[0].cfc_free",
-		"vmp_prescribing_status" => "vtm.virtual_medicinal_products[0].prescribing_status",
-		"vmp_dose_form_indicator" => "vtm.virtual_medicinal_products[0].unit_dose_form",
-		"vmp_dose_form_size" => "vtm.virtual_medicinal_products[0].unit_dose_form_size",
-		"vmp_dose_form_units" => "vtm.virtual_medicinal_products[0].unit_dose_form_units",
-		"vmp_dose_form_unit_measure" => "vtm.virtual_medicinal_products[0].unit_dose_unit_of_measure",
+		"vmp_name_applicable_from" => "virtual_medicinal_products[0].name_applicable_from",
+		"vmp_sugar_free" => "virtual_medicinal_products[0].sugar_free",
+		"vmp_gluten_free" => "virtual_medicinal_products[0].gluten_free",
+		"vmp_preservative_free" => "virtual_medicinal_products[0].preservative_free",
+		"vmp_cfc_free" => "virtual_medicinal_products[0].cfc_free",
+		"vmp_prescribing_status" => "virtual_medicinal_products[0].prescribing_status",
+		"vmp_dose_form_indicator" => "virtual_medicinal_products[0].unit_dose_form",
+		"vmp_dose_form_size" => "virtual_medicinal_products[0].unit_dose_form_size",
+		"vmp_dose_form_units" => "virtual_medicinal_products[0].unit_dose_form_units",
+		"vmp_dose_form_unit_measure" => "virtual_medicinal_products[0].unit_dose_unit_of_measure",
 		
-		"amp_id" => null,
-		"amp_pack_description" => null,
-		"amp_combination_pack_indicator" => null,
+		"amp_id" => "virtual_medicinal_products[0].actual_medicinal_products[0].id",
+		"amp_pack_description" => "virtual_medicinal_products[0].actual_medicinal_products[0].summary",
+		"amp_combination_pack_indicator" => "virtual_medicinal_products[0].actual_medicinal_products[0].combination_product",
 		"amp_quantity" => null,
 		"amp_quantity_units" => null,
 		
-		"vmpp_id" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].id",
-		"vmpp_pack_description" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].summary",
-		"vmpp_combination_pack_indicator" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].combination_pack",
-		"vmpp_quantity" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity",
-		"vmpp_quantity_units" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity_measure",
+		"vmpp_id" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].id",
+		"vmpp_pack_description" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].summary",
+		"vmpp_combination_pack_indicator" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].combination_pack",
+		"vmpp_quantity" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity",
+		"vmpp_quantity_units" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity_measure",
 		
-		"ampp_name" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].name",
-		"ampp_combination_pack_indicator" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].ampp_combination_pack_indicator",
-		"ampp_sub_pack_information" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].sub_pack_information",
-		"ampp_legal_category" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].legal_category",
-		"ampp_price" => "vtm.virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].price"
-		// price is missing
+		"ampp_name" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].name",
+		"ampp_combination_pack_indicator" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].ampp_combination_pack_indicator",
+		"ampp_sub_pack_information" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].sub_pack_information",
+		"ampp_legal_category" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].legal_category",
+		"ampp_price" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].medicinal_product_price.price"
 	);
 	
 	/*
@@ -466,7 +465,7 @@ class acf_field_medicine_pack extends acf_field {
 		$field = $this->get_acf_field_by_name('ampp_id', false, $post_id);
 		if ( isset($field['key'])) {
 			$field_key = $field['key'];
-			$ampp_id = get_field($field_key, $post_id);
+			$ampp_id = $_POST['acf'][$field_key];
 			
 			// get the medicine 
 			$medicine = $this->api->ampp( $ampp_id );

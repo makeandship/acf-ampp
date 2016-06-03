@@ -4,12 +4,7 @@
 	function initialize_field( $el ) {
 		
 		//$el.doStuff();
-		// post_object
-		console.log('obj:');
-		console.log($el);
-
-		var select2 = $el.find('select');
-	
+		
 	}
 	
 	
