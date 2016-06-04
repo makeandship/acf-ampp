@@ -4,14 +4,12 @@ Tags: Medicine, NHS, Medical
 Requires at least: 3.5
 Tested up to: 3.8.1
 Stable tag: trunk
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Medicine pack selector from Drugs, Medicines and Devices
+Select a medicines pack entry from Dictionary of Medicines and Devices
 
 == Description ==
 
-
+Select a medicines pack entry from Dictionary of Medicines and Devices
 
 = Compatibility =
 

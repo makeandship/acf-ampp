@@ -2,13 +2,11 @@
 
 /*
 Plugin Name: Advanced Custom Fields: Medicine Pack
-Plugin URI: PLUGIN_URL
-Description: SHORT_DESCRIPTION
+Plugin URI: http://www.github.com/makeandship/acf-medicine-pack
+Description: Select a medicines pack entry from Dictionary of Medicines and Devices
 Version: 1.0.0
-Author: AUTHOR_NAME
-Author URI: AUTHOR_URL
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Author: Make and Ship Limited
+Author URI: http://www.makeandship.com
 */
 
 // exit if accessed directly
