@@ -1,7 +1,6 @@
 <?php
 
 require_once(__dir__.'/medicines-api.php');
-require_once(__dir__ . '/../vendor/autoload.php');
 
 use Flow\JSONPath\JSONPath;
 
