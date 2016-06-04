@@ -15,6 +15,7 @@
         }
     ],
     "require": {
+        "composer/installers": "*",
         "flow/jsonpath": "dev-master"
     }
 }
