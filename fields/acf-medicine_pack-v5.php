@@ -96,14 +96,10 @@ class acf_field_medicine_pack extends acf_field {
 		*/
 		$this->settings = $settings;
 
-		error_log('constructor');
-
 		add_action('wp_ajax_acf/fields/medicine_pack/query', array($this, 'ajax_query'));
 		add_action('wp_ajax_nopriv_acf/fields/medicine_pack/query',	array($this, 'ajax_query'));
 
 		add_action('acf/save_post', array($this, 'update_medicine_information'), 1);
-
-		error_log('actions added');		
 		
 		// do not delete!
     	parent::__construct();
