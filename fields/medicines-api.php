@@ -44,7 +44,7 @@ class MedicinesApi {
 			foreach($vtm['virtual_medicinal_products'] as $vmp) {
 				foreach($vmp['virtual_medicinal_product_packs'] as $vmpp) {
 					foreach($vmpp['actual_medicinal_product_packs'] as $ampp) {
-						$ampp_id = $ampp['id'];
+						$ampp_id = strval($ampp['id']);
 						$ampp_name = $ampp['name'];
 						
 						$title = $ampp_name;
