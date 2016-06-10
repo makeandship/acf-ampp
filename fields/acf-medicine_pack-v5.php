@@ -1,7 +1,6 @@
 <?php
 
-require_once(__dir__.'/medicines-api.php');
-
+use Medicines\MedicinesClient;
 use Flow\JSONPath\JSONPath;
 
 // exit if accessed directly
@@ -78,7 +77,7 @@ class acf_field_medicine_pack extends acf_field {
 			'allow_null' 	=> 0,
 			'multiple'		=> 0,
 		);
-		$this->api = new MedicinesApi();
+		$this->api = new MedicinesClient();
 		
 		
 		/*
