@@ -105,8 +105,22 @@ class acf_field_medicine_pack extends acf_field {
     	
 	}
 
+	function create_query( $args ) {
+		$query = array();
+		$query['name'] = $args['s'];
+		
+		// full response for AMPP 
+		$query['scheme'] = 'core';
+
+		if (array_key_exists('vtm_id', $args)) {
+			$query['vtm_id'] = $args['vtm_id'];
+		}
+		
+		return $query;
+	}
+
 	/*
-	*  get_ampps
+	*  find_ampps
 	*
 	*  load matches at AMPP level from DM+D given a partial 
 	*  virtual therapeutic moiety name 
@@ -118,13 +132,29 @@ class acf_field_medicine_pack extends acf_field {
 	*  @param	$args post args (s contains the query)
 	*  @return	$results array of vtm -> [ampp] results 
 	*/
-	function get_ampps( $args ) {
-		$query = array();
-		$query['name'] = $args['s'];
+	function find_ampps( $query ) {
 
 		$results = $this->api->ampps($query);
 		
 		return $results;
+	}
+	
+	/**
+	 * Transform a set of API results into id / text pairs
+	 */
+	function transform( $matches ) {
+		$transformed = array();
+
+		foreach($matches as $match) {
+			$entry = array(
+				'id' => strval($match['id']),
+				'text' => $match['name']
+			);
+
+			array_push($transformed, $entry);
+		}
+
+		return $transformed;
 	}
 	
 	/*
@@ -141,16 +171,15 @@ class acf_field_medicine_pack extends acf_field {
 	*/
 	
 	function ajax_query() {
-
-		error_log('ajax_query');
-		error_log(print_r($_POST, true));
 		
 		// validate
 		if( !acf_verify_ajax() ) die();
 		
 		
 		// get choices
-		$choices = $this->get_ampps( $_POST );
+		$query = $this->create_query( $_POST );
+		$matches = $this->find_ampps( $query );
+		$choices = $this->transform( $matches );
 		
 		// validate
 		if( !$choices ) die();
@@ -158,7 +187,7 @@ class acf_field_medicine_pack extends acf_field {
 		
 		// return JSON
 		$json = json_encode( $choices );
-		//error_log($json);
+		
 		echo $json;
 		die();
 			

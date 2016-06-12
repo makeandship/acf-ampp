@@ -43,17 +43,15 @@
 			
 		});
 
-		acf.add_filter('select2_args', function( args, $select, settings ){
-	
-			// do something to args
-			var s = "ss";
+		acf.add_filter('prepare_for_ajax', function( args ) {
+
+			var vtmId = $('div[data-name="vtm_id"] input').val();
 			
-			// return
+			// capture the value of the parent VTM and set
+			args['vtm_id'] = vtmId;
+
 			return args;
-					
-		});
-
-
+		})
 		
 		
 	} else {
