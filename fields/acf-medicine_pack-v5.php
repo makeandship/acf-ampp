@@ -76,6 +76,7 @@ class acf_field_medicine_pack extends acf_field {
 			'taxonomy'		=> array(),
 			'allow_null' 	=> 0,
 			'multiple'		=> 0,
+			'automatically_update_title' => 1,
 		);
 		$this->api = new MedicinesClient();
 		
@@ -496,11 +497,27 @@ class acf_field_medicine_pack extends acf_field {
 			// get the medicine 
 			$medicine = $this->api->ampp( $ampp_id );
 			
-			//if ($medicine) {
-			foreach(self::MEDICINES_FIELDS as $key => $pattern) {
-				$this->update_medicine_field($key, $pattern, $medicine);
+			$title = null;
+			
+			// the medicine
+			if ($medicine) {
+				foreach(self::MEDICINES_FIELDS as $key => $pattern) {
+					$value = $this->update_medicine_field($key, $pattern, $medicine);
+					
+					if ($key === 'ampp_name') {
+						$title = $value;
+					}
+				}
 			}
-			//}
+			
+			if ($field['automatically_update_title'] && !empty($title)) {
+				//
+				$args = array(
+					'post_title' => $title,
+					'ID' => $post_id
+				);
+				wp_update_post($args);
+			}
 		}
 	}
 	
@@ -510,11 +527,11 @@ class acf_field_medicine_pack extends acf_field {
 			$this->jsonpath = new JSONPath($medicine);
 		}
 		
+		$value = null;
+		
 		$field = $this->get_acf_field_by_name($field_name, false);
 		if (isset($field['key'])) {
 			$field_key = $field['key'];
-			
-			$value = null;
 			
 			if ($pattern) {
 				$selector = '$.'.$pattern;
@@ -527,8 +544,9 @@ class acf_field_medicine_pack extends acf_field {
 			}	
 			
 			$_POST['acf'][$field_key] = $value;
-			
 		}
+		
+		return $value;
 	}
 	
 	function get_acf_field_by_name($name = '', $db_only = false) {
