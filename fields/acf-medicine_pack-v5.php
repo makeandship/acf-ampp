@@ -220,11 +220,14 @@ class acf_field_medicine_pack extends acf_field {
 		*/
 		
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Font Size','acf-medicine_pack'),
-			'instructions'	=> __('Customise the input font size','acf-medicine_pack'),
-			'type'			=> 'number',
-			'name'			=> 'font_size',
-			'prepend'		=> 'px',
+			'label'			=> __('Set Title Automatically?','acf-medicine_pack'),
+			'type'			=> 'radio',
+			'name'			=> 'automatically_update_title',
+			'choices'		=> array(
+				1				=> __("Yes",'acf'),
+				0				=> __("No",'acf'),
+			),
+			'layout'	=>	'horizontal',
 		));
 
 	}
