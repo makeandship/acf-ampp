@@ -54,7 +54,9 @@ class acf_field_medicine_pack extends acf_field {
 		"ampp_combination_pack_indicator" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].ampp_combination_pack_indicator",
 		"ampp_sub_pack_information" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].sub_pack_information",
 		"ampp_legal_category" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].legal_category",
-		"ampp_price" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].medicinal_product_price.price"
+		"ampp_price" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].medicinal_product_price.price",
+		"ampp_price_basis_id" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].medicinal_product_price.basis.code",
+		"ampp_price_basis" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].medicinal_product_price.basis.description"
 	);
 	
 	/*
