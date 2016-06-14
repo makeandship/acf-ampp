@@ -19,6 +19,8 @@ class acf_field_medicine_pack extends acf_field {
 		"vtm_id" => "id",
 		"vtm_name" => "name",
 		"vtm_applicable_from" => "applicable_from",
+		"vtm_basis_of_name_id" => "basis_of_name.code",
+		"vtm_basis_of_name" => "basis_of_name.description",
 		
 		"vmp_id" => "virtual_medicinal_products[0].id",
 		"vmp_applicable_from" => "virtual_medicinal_products[0].applicable_from",
@@ -32,14 +34,15 @@ class acf_field_medicine_pack extends acf_field {
 		"vmp_prescribing_status" => "virtual_medicinal_products[0].prescribing_status",
 		"vmp_dose_form_indicator" => "virtual_medicinal_products[0].unit_dose_form",
 		"vmp_dose_form_size" => "virtual_medicinal_products[0].unit_dose_form_size",
-		"vmp_dose_form_units" => "virtual_medicinal_products[0].unit_dose_form_units",
-		"vmp_dose_form_unit_measure" => "virtual_medicinal_products[0].unit_dose_unit_of_measure",
+		"vmp_dose_form_unit_measure_id" => "virtual_medicinal_products[0].unit_of_measure.code",
+		"vmp_dose_form_unit_measure" => "virtual_medicinal_products[0].unit_of_measure.description",
+		
 		
 		"amp_id" => "virtual_medicinal_products[0].actual_medicinal_products[0].id",
 		"amp_pack_description" => "virtual_medicinal_products[0].actual_medicinal_products[0].summary",
 		"amp_combination_pack_indicator" => "virtual_medicinal_products[0].actual_medicinal_products[0].combination_product",
-		"amp_quantity" => null,
-		"amp_quantity_units" => null,
+		"amp_supplier_id" => "virtual_medicinal_products[0].actual_medicinal_products[0].lookup_supplier.code",
+		"amp_supplier" => "virtual_medicinal_products[0].actual_medicinal_products[0].lookup_supplier.description",
 		
 		"vmpp_id" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].id",
 		"vmpp_pack_description" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].summary",
@@ -495,7 +498,10 @@ class acf_field_medicine_pack extends acf_field {
 			$ampp_id = $_POST['acf'][$field_key];
 			
 			// get the medicine 
-			$medicine = $this->api->ampp( $ampp_id );
+			$query = array(
+				'scheme' => 'full'	
+			);
+			$medicine = $this->api->ampp( $ampp_id, $query );
 			
 			$title = null;
 			
