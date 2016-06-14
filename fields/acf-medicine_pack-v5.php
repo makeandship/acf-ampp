@@ -47,7 +47,8 @@ class acf_field_medicine_pack extends acf_field {
 		"vmpp_pack_description" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].summary",
 		"vmpp_combination_pack_indicator" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].combination_pack",
 		"vmpp_quantity" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity",
-		"vmpp_quantity_units" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity_measure",
+		"vmpp_quantity_measure_id" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity_measure.code",
+		"vmpp_quantity_measure" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity_measure.description",
 		
 		"ampp_name" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].name",
 		"ampp_combination_pack_indicator" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].ampp_combination_pack_indicator",
