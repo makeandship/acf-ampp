@@ -235,6 +235,27 @@ class acf_field_medicine_pack extends acf_field {
 			),
 			'layout'	=>	'horizontal',
 		));
+		
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Filter?','acf-medicine_pack'),
+			'type'			=> 'select',
+			'name'			=> 'filter_field',
+			'choices'		=> array(
+				'None'				=> __("No filter",'acf'),
+				'VTM'				=> __("VTM",'acf'),
+				'VMP'				=> __("VMP",'acf'),
+				'AMP'				=> __("AMP",'acf'),
+				'VMPP'				=> __("VMPP",'acf'),
+			),
+			'layout'	=>	'horizontal',
+		));
+		
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Filter field name','acf-medicine_pack'),
+			'type'			=> 'text',
+			'name'			=> 'filter_field_name',
+			'layout'	=>	'horizontal',
+		));
 
 	}
 	
@@ -265,10 +286,7 @@ class acf_field_medicine_pack extends acf_field {
 			$name = '';
 			
 			// get the medicine
-			$query = array(
-				'scheme' => 'full'	
-			);
-			$ampp = $this->api->ampp($field['value'], $query);
+			$ampp = $this->api->ampp($field['value']);
 			if ($ampp) {
 				$jsonpath = new JSONPath($ampp);
 				$selector = '$.'.self::MEDICINES_FIELDS['ampp_name'];
