@@ -111,15 +111,24 @@ class acf_field_medicine_pack extends acf_field {
     	
 	}
 
-	function create_query( $args ) {
+	function create_query( $args, $field ) {
 		$query = array();
 		$query['name'] = $args['s'];
 		
 		// full response for AMPP 
 		$query['scheme'] = 'core';
 
-		if (array_key_exists('vtm_id', $args)) {
-			$query['vtm_id'] = $args['vtm_id'];
+		$settings_filter_field = $field['filter_field'];
+		$settings_filter_field_name = $field['filter_field_name'];
+
+		if (
+			!empty(settings_filter_field) && 
+			!empty(settings_filter_field_name) && 
+			$this->settings['filter_field'] !== 'None'
+		) {
+			if (array_key_exists($settings_filter_field_name, $args)) {
+				$query[$settings_filter_field] = $args[$settings_filter_field_name];
+			}
 		}
 		
 		return $query;
@@ -176,14 +185,16 @@ class acf_field_medicine_pack extends acf_field {
 	*  @return	$post_id (int)
 	*/
 	
-	function ajax_query() {
+	function ajax_query( $something ) {
 		
 		// validate
 		if( !acf_verify_ajax() ) die();
 		
+		// definition
+		$field = $this->get_acf_field_by_name('ampp_id', false);
 		
 		// get choices
-		$query = $this->create_query( $_POST );
+		$query = $this->create_query( $_POST, $field );
 		$matches = $this->find_ampps( $query );
 		$choices = $this->transform( $matches );
 		
@@ -242,10 +253,10 @@ class acf_field_medicine_pack extends acf_field {
 			'name'			=> 'filter_field',
 			'choices'		=> array(
 				'None'				=> __("No filter",'acf'),
-				'VTM'				=> __("VTM",'acf'),
-				'VMP'				=> __("VMP",'acf'),
-				'AMP'				=> __("AMP",'acf'),
-				'VMPP'				=> __("VMPP",'acf'),
+				'vtm_id'			=> __("VTM",'acf'),
+				'vmp_id'			=> __("VMP",'acf'),
+				'amp_id'			=> __("AMP",'acf'),
+				'vmpp_id'			=> __("VMPP",'acf'),
 			),
 			'layout'	=>	'horizontal',
 		));
@@ -333,7 +344,6 @@ class acf_field_medicine_pack extends acf_field {
 		// vars
 		$url = $this->settings['url'];
 		$version = $this->settings['version'];
-		
 		
 		// register & include JS
 		wp_register_script( 'acf-input-medicine_pack', "{$url}assets/js/input.js", array('acf-input'), $version );
