@@ -85,7 +85,6 @@ class acf_field_medicine_pack extends acf_field {
 		);
 		$this->api = new MedicinesClient();
 		
-		
 		/*
 		*  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
 		*  var message = acf._e('medicine_pack', 'error');
@@ -103,8 +102,6 @@ class acf_field_medicine_pack extends acf_field {
 
 		add_action('wp_ajax_acf/fields/medicine_pack/query', array($this, 'ajax_query'));
 		add_action('wp_ajax_nopriv_acf/fields/medicine_pack/query',	array($this, 'ajax_query'));
-
-		add_action('acf/save_post', array($this, 'update_medicine_information'), 1);
 		
 		// do not delete!
     	parent::__construct();
@@ -185,13 +182,22 @@ class acf_field_medicine_pack extends acf_field {
 	*  @return	$post_id (int)
 	*/
 	
-	function ajax_query( $something ) {
+	function ajax_query( ) {
 		
 		// validate
 		if( !acf_verify_ajax() ) die();
 		
-		// definition
-		$field = $this->get_acf_field_by_name('ampp_id', false);
+		// options
+   		$options = acf_parse_args( $_POST, array(
+			'post_id'					=>	0,
+			's'							=>	'',
+			'field_key'					=>	'',
+			'nonce'						=>	'',
+		));
+		
+		
+		// load field
+		$field = acf_get_field( $options['field_key'] );
 		
 		// get choices
 		$query = $this->create_query( $_POST, $field );
@@ -288,7 +294,6 @@ class acf_field_medicine_pack extends acf_field {
 	*/
 	
 	function render_field( $field ) {
-		
 		$field['type'] = 'select';
 		$field['ui'] = 1;
 		$field['ajax'] = 1;
@@ -523,94 +528,6 @@ class acf_field_medicine_pack extends acf_field {
 		
 	}
 	*/
-
-	function update_medicine_information($post_id) {
-		$field = $this->get_acf_field_by_name('ampp_id', false, $post_id);
-		if ( isset($field['key'])) {
-			$field_key = $field['key'];
-			$ampp_id = $_POST['acf'][$field_key];
-			
-			// get the medicine 
-			$query = array(
-				'scheme' => 'full'	
-			);
-			$medicine = $this->api->ampp( $ampp_id, $query );
-			
-			$title = null;
-			
-			// the medicine
-			if ($medicine) {
-				foreach(self::MEDICINES_FIELDS as $key => $pattern) {
-					$value = $this->update_medicine_field($key, $pattern, $medicine);
-					
-					if ($key === 'ampp_name') {
-						$title = $value;
-					}
-				}
-			}
-			
-			if ($field['automatically_update_title'] && !empty($title)) {
-				//
-				$args = array(
-					'post_title' => $title,
-					'ID' => $post_id
-				);
-				wp_update_post($args);
-			}
-		}
-	}
-	
-	function update_medicine_field($field_name, $pattern, $medicine) {
-
-		if (!$this->jsonpath) {
-			$this->jsonpath = new JSONPath($medicine);
-		}
-		
-		$value = null;
-		
-		$field = $this->get_acf_field_by_name($field_name, false);
-		if (isset($field['key'])) {
-			$field_key = $field['key'];
-			
-			if ($pattern) {
-				$selector = '$.'.$pattern;
-				$match = $this->jsonpath->find($selector);
-				$value = $match->data();
-				
-				if (is_array($value) && count($value) === 1 && $value[0] != null) {
-					$value = $value[0];
-				}
-				else {
-					$value = null;
-				}
-			}	
-			
-			$_POST['acf'][$field_key] = $value;
-		}
-		
-		return $value;
-	}
-	
-	function get_acf_field_by_name($name = '', $db_only = false) {
-		$args = array(
-			'posts_per_page'	=> 0,
-			'post_type'			=> 'acf-field',
-			'orderby' 			=> 'menu_order title',
-			'order'				=> 'ASC',
-			'suppress_filters'	=> false,
-			'acf_field_name'	=> $name
-		);
-		// load posts
-		$posts = get_posts( $args );
-		
-		// return first one that is not a tab
-		foreach($posts as $post) {
-			$field = _acf_get_field_by_id($post->ID, $db_only);
-			if ( $field['type'] !== 'tab') {
-				return $field;
-			}
-		}
-	}
 	
 	/*
 	*  format_value()
