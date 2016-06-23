@@ -302,7 +302,10 @@ class acf_field_medicine_pack extends acf_field {
 			$name = '';
 			
 			// get the medicine
-			$ampp = $this->api->ampp($field['value']);
+			$query = array(
+			    'scheme' => 'full'  
+			);
+			$ampp = $this->api->ampp($field['value'], $query);
 			if ($ampp) {
 				$jsonpath = new JSONPath($ampp);
 				$selector = '$.'.self::MEDICINES_FIELDS['ampp_name'];
