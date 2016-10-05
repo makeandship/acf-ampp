@@ -114,6 +114,7 @@ class acf_field_medicine_pack extends acf_field {
 		
 		// full response for AMPP 
 		$query['scheme'] = 'core';
+		$query['per'] = 100;
 
 		$settings_filter_field = $field['filter_field'];
 		$settings_filter_field_name = $field['filter_field_name'];
