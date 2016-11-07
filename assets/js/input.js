@@ -47,27 +47,29 @@
 			
 			// context for the lookup
 			var fieldKey = args.field_key;
-			var wrapper = $('div.acf-' + fieldKey.replace('_','-'));
-			var parent = wrapper.parents('div.acf-postbox');
-			
-			// contextualise this lookup
-			var vtmId = $('div[data-type="vtm"] input', parent).val();
-			var vmpId = $('div[data-type="vmp"] input', parent).val();
-			var vmppId = $('div[data-type="vmpp"] input', parent).val();
-			var ampId = $('div[data-type="amp"] input', parent).val();
-			
-			// capture the value of the parent VTM and set
-			if (vtmId) {
-				args['vtm_id'] = vtmId;
-			}
-			if (vmpId) {
-				args['vmp_id'] = vmpId;
-			}
-			if (vmppId) {
-				args['vmpp_id'] = vmppId;
-			}
-			if (ampId) {
-				args['amp_id'] = ampId;
+			if (fieldKey) {
+				var wrapper = $('div.acf-' + fieldKey.replace('_','-'));
+				var parent = wrapper.parents('div.acf-postbox');
+				
+				// contextualise this lookup
+				var vtmId = $('div[data-type="vtm"] input', parent).val();
+				var vmpId = $('div[data-type="vmp"] input', parent).val();
+				var vmppId = $('div[data-type="vmpp"] input', parent).val();
+				var ampId = $('div[data-type="amp"] input', parent).val();
+				
+				// capture the value of the parent VTM and set
+				if (vtmId) {
+					args['vtm_id'] = vtmId;
+				}
+				if (vmpId) {
+					args['vmp_id'] = vmpId;
+				}
+				if (vmppId) {
+					args['vmpp_id'] = vmppId;
+				}
+				if (ampId) {
+					args['amp_id'] = ampId;
+				}
 			}
 
 			return args;
