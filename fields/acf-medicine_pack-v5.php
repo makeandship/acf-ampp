@@ -15,50 +15,8 @@ class acf_field_medicine_pack extends acf_field {
 	
 	private $jsonpath = null;
 	
-	const MEDICINES_FIELDS = array(
-		"vtm_id" => "id",
-		"vtm_name" => "name",
-		"vtm_applicable_from" => "applicable_from",
-		
-		"vmp_id" => "virtual_medicinal_products[0].id",
-		"vmp_applicable_from" => "virtual_medicinal_products[0].applicable_from",
-		"vmp_name" => "virtual_medicinal_products[0].name",
-		"vmp_name_standard" => null,
-		"vmp_name_applicable_from" => "virtual_medicinal_products[0].name_applicable_from",
-		"vmp_sugar_free" => "virtual_medicinal_products[0].sugar_free",
-		"vmp_gluten_free" => "virtual_medicinal_products[0].gluten_free",
-		"vmp_preservative_free" => "virtual_medicinal_products[0].preservative_free",
-		"vmp_cfc_free" => "virtual_medicinal_products[0].cfc_free",
-		"vmp_prescribing_status" => "virtual_medicinal_products[0].prescribing_status",
-		"vmp_dose_form_indicator" => "virtual_medicinal_products[0].unit_dose_form",
-		"vmp_dose_form_size" => "virtual_medicinal_products[0].unit_dose_form_size",
-		"vmp_dose_form_unit_measure_id" => "virtual_medicinal_products[0].unit_of_measure.code",
-		"vmp_dose_form_unit_measure" => "virtual_medicinal_products[0].unit_of_measure.description",
-		"vmp_basis_of_name_id" => "virtual_medicinal_products[0].basis_of_name.code",
-		"vmp_basis_of_name" => "virtual_medicinal_products[0].basis_of_name.description",
-		
-		"amp_id" => "virtual_medicinal_products[0].actual_medicinal_products[0].id",
-		"amp_pack_description" => "virtual_medicinal_products[0].actual_medicinal_products[0].summary",
-		"amp_combination_pack_indicator" => "virtual_medicinal_products[0].actual_medicinal_products[0].combination_product",
-		"amp_supplier_id" => "virtual_medicinal_products[0].actual_medicinal_products[0].lookup_supplier.code",
-		"amp_supplier" => "virtual_medicinal_products[0].actual_medicinal_products[0].lookup_supplier.description",
-		
-		"vmpp_id" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].id",
-		"vmpp_pack_description" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].summary",
-		"vmpp_combination_pack_indicator" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].combination_pack",
-		"vmpp_quantity" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity",
-		"vmpp_quantity_measure_id" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity_measure.code",
-		"vmpp_quantity_measure" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].quantity_measure.description",
-		
-		"ampp_name" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].name",
-		"ampp_combination_pack_indicator" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].ampp_combination_pack_indicator",
-		"ampp_sub_pack_information" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].sub_pack_information",
-		"ampp_legal_category" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].legal_category",
-		"ampp_price" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].medicinal_product_price.price",
-		"ampp_price_basis_id" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].medicinal_product_price.basis.code",
-		"ampp_price_basis" => "virtual_medicinal_products[0].virtual_medicinal_product_packs[0].actual_medicinal_product_packs[0].medicinal_product_price.basis.description"
-	);
-	
+	const AMPP_NAME_SELECTOR = '$.name';
+
 	/*
 	*  __construct
 	*
@@ -310,7 +268,7 @@ class acf_field_medicine_pack extends acf_field {
 			$ampp = $this->api->ampp($field['value'], $query);
 			if ($ampp) {
 				$jsonpath = new JSONPath($ampp);
-				$selector = '$.'.self::MEDICINES_FIELDS['ampp_name'];
+				$selector = self::AMPP_NAME_SELECTOR;
 				$match = $jsonpath->find($selector);
 				$data = $match->data();
 				if ($data && is_array($data) && count($data) === 1) {
