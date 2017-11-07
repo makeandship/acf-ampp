@@ -78,10 +78,11 @@ class acf_field_medicine_pack extends acf_field {
 		$settings_filter_field_name = $field['filter_field_name'];
 
 		if (
-			!empty(settings_filter_field) && 
-			!empty(settings_filter_field_name) && 
-			$this->settings['filter_field'] !== 'None'
-		) {
+            !empty($settings_filter_field) &&
+            !empty($settings_filter_field_name) &&
+            (!array_key_exists('key', $this->settings) ||
+            $this->settings['filter_field'] !== 'None')
+        ) {
 			if (array_key_exists($settings_filter_field_name, $args)) {
 				$query[$settings_filter_field] = $args[$settings_filter_field_name];
 			}
