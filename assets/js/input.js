@@ -5,7 +5,7 @@
 
   if (acf) {
     var AMPP = acf.Field.extend({
-      type: "medicine_pack",
+      type: "ampp",
       select2: false,
 
       wait: "load",
@@ -166,7 +166,7 @@
 
     $(document).on("acf/setup_fields", function(e, postbox) {
       $(postbox)
-        .find('.field[data-field_type="medicine_pack"]')
+        .find('.field[data-field_type="ampp"]')
         .each(function() {
           initialize_field($(this));
         });
