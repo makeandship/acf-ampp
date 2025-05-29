@@ -56,7 +56,7 @@ and
 
 ## Development
 
-### Format
+### Formatting
 
 Uses `prettier` and `@prettier/plugin-php` for code formatting
 
