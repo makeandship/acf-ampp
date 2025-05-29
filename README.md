@@ -60,6 +60,4 @@ and
 
 Uses `prettier` and `@prettier/plugin-php` for code formatting
 
-Install dependencies using:
-
-`npm i` to install dependencies
+Install dependencies using `npm i` 
