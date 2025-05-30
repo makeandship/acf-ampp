@@ -31,7 +31,7 @@ if (!class_exists('acf_plugin_ampp')):
          *  @return	n/a
          */
 
-        private $settings;
+        var $settings;
 
         public function __construct()
         {
