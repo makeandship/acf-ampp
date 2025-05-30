@@ -1,22 +1,22 @@
 {
-    "name": "ceremium/acf-ampp",
+    "name": "makeandship/acf-ampp",
     "description": "AMPP field type for ACF",
     "type": "wordpress-plugin",
     "authors": [
         {
-            "name": "Ceremium Limited",
-            "homepage": "https://www.ceremium.com/"
+            "name": "Make and Ship Limited",
+            "homepage": "https://www.makeandship.com/"
         }
     ],
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/ceremium/medicines-client-php.git"
+            "url": "https://github.com/makeandship/medicines-client-php.git"
         }
     ],
     "require": {
         "composer/installers": "*",
-        "ceremium/medicines-client-php": "v1.0.0"
+        "makeandship/medicines-client-php": "v1.0.0"
     },
     "config": {
         "allow-plugins": {
